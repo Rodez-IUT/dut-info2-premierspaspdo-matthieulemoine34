@@ -1,7 +1,7 @@
 # INFO2-PremiersPasPDO
 
-### NOM : DOE
-### Prénom : John
-### Groupe de TP : 
+### NOM : LEMOINE
+### Prénom : Matthieu
+### Groupe de TP : 2
 - [ ] TD1
 - [X] TD2
