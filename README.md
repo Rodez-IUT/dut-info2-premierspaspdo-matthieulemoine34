@@ -3,5 +3,5 @@
 ### NOM : DOE
 ### Prénom : John
 ### Groupe de TP : 
-- [X] TD1
-- [ ] TD2
+- [ ] TD1
+- [X] TD2
