@@ -43,11 +43,14 @@
 
 
         <?php
-            $stmt = $pdo->query("SELECT U.id,U.username,U.email,S.name 
+            $stmt = $pdo->prepare("SELECT U.id,U.username,U.email,S.name 
                                    FROM users U 
                                    JOIN status S 
                                    ON S.id = U.status_id
+                                   WHERE U.status_id = ?
+                                   AND U.username LIKE ?
                                    ORDER BY username");
+            $stmt->execute([2,"e%"]);
             
 
             while($row = $stmt->fetch()){
