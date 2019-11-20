@@ -29,7 +29,17 @@
         }
     ?>
 
-
+    <form method="get" action="all_users.php">
+        <label for="debut">Commence par la lettre : </label>
+        <input type="text" name="debut" id="debut" size="2">
+        <label for="statu">  le statu doit etre : </label>
+        <select name="statu" id="statu">
+            <option value=""></option>
+            <option value=1>Waiting for account validation</option>
+            <option value=2>Active account</option>
+        </select>
+        <input type="submit" value="Ok">
+    </form>
 
     <h1> ALL USER </h1>
 
@@ -43,16 +53,58 @@
 
 
         <?php
+
             $stmt = $pdo->prepare("SELECT U.id,U.username,U.email,S.name 
                                    FROM users U 
                                    JOIN status S 
                                    ON S.id = U.status_id
-                                   WHERE U.status_id = ?
+                                   WHERE U.status_id IN (?,?,?)
                                    AND U.username LIKE ?
                                    ORDER BY username");
-            $stmt->execute([2,"e%"]);
-            
+            $stat[0] = 1;
+            $stat[1] = 2;
+            $stat[2] = 3;
+            $name="%";
 
+            if (isset($_GET['statu']) || isset($_GET['debut'])) {
+                if (isset($_GET['statu']) && $_GET['statu']!="" && isset($_GET['debut']) && $_GET['debut']!= "") {
+                    $stat[0] = $stat[1] = $stat[2] = $_GET['statu'];
+                    $name = $_GET['debut']."%";
+                } elseif ($_GET['debut']== "" && $_GET['statu'] == "" ){
+                    $stat[0] = 1;
+                    $stat[1] = 2;
+                    $stat[2] = 3;
+                    $name = "%";
+                } elseif ($_GET['statu']=="" && $_GET['debut']!= "" ) {
+                    $stat[0] = 1;
+                    $stat[1] = 2;
+                    $stat[2] = 3;
+                    $name = $_GET['debut']."%";
+                } elseif ($_GET['statu']=="" && $_GET['debut']== "" ) {
+                    $stat[0] = 1;
+                    $stat[1] = 2;
+                    $stat[2] = 3;
+                    $name = "%";
+                
+                } elseif ($_GET['debut']=="" && $_GET['statu']!="") {
+                    $stat[0] = $stat[1] = $stat[2] = $_GET['statu'];
+                    $name = "%";
+                } elseif ($_GET['debut']=="" && $_GET['statu'] == "") {
+                    $stat[0] = 1;
+                    $stat[1] = 2;
+                    $stat[2] = 3;
+                    $name = "%";
+                }
+            } else {
+                $stat[0] = 1;
+                $stat[1] = 2;
+                $stat[2] = 3;
+                $name = "%";
+            }
+            
+            $stmt->execute([$stat[0],$stat[1],$stat[2],$name]);
+            
+            
             while($row = $stmt->fetch()){
      
                 echo '<tr>';
