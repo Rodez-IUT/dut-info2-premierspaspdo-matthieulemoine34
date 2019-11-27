@@ -1,0 +1,1 @@
+la requete ne me renvoie rien car je suis deja en enoncé préparé
