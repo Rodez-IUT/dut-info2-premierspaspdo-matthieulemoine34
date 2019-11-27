@@ -37,6 +37,7 @@
             <option value=""></option>
             <option value=1>Waiting for account validation</option>
             <option value=2>Active account</option>
+            <option value=3>Waiting for account deletaion</option>
         </select>
         <input type="submit" value="Ok">
     </form>
@@ -80,19 +81,8 @@
                     $stat[1] = 2;
                     $stat[2] = 3;
                     $name = $_GET['debut']."%";
-                } elseif ($_GET['statu']=="" && $_GET['debut']== "" ) {
-                    $stat[0] = 1;
-                    $stat[1] = 2;
-                    $stat[2] = 3;
-                    $name = "%";
-                
                 } elseif ($_GET['debut']=="" && $_GET['statu']!="") {
                     $stat[0] = $stat[1] = $stat[2] = $_GET['statu'];
-                    $name = "%";
-                } elseif ($_GET['debut']=="" && $_GET['statu'] == "") {
-                    $stat[0] = 1;
-                    $stat[1] = 2;
-                    $stat[2] = 3;
                     $name = "%";
                 }
             } else {
