@@ -71,7 +71,7 @@
                     $stat[0] = $stat[1] = $stat[2] = $_GET['statu'];
                     $name = $_GET['debut']."%";
                 } elseif ($_GET['debut']== "" && $_GET['statu'] == "" ){
-                    $stat[0] = 1;
+                    $stat[0] = 1; 
                     $stat[1] = 2;
                     $stat[2] = 3;
                     $name = "%";
