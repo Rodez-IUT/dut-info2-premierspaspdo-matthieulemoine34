@@ -102,6 +102,12 @@
                 echo '<td>'.$row['username'].'</td>';
                 echo '<td>'.$row['email'].'</td>';
                 echo '<td>'.$row['name'].'</td>';
+                if ($row['name'] != "Waiting for account deletion" ){
+                    echo '<td>   
+                            <a href="all_users.php?debut='.$row['username'].'&statu=3&action=askDeletion">Ask deletation
+                            </a>
+                          </td>';
+                }
                 echo '</tr>';
             }
         ?>
