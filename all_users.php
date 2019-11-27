@@ -67,6 +67,24 @@
             $stat[2] = 3;
             $name="%";
 
+            $delet = $pdo->prepare('INSERT INTO action_log (action_date,action_name,user_id)
+                                    VALUES (NOW(),"askDeletion",?)');
+
+            $change = $pdo->prepare('UPDATE users 
+                                     SET status_id = 3
+                                     WHERE id = ?');
+
+            if (isset($_GET['action']) && $_GET['action']=="askDeletion" && isset($_GET['debut'])){
+                $stmt->execute([1,2,3,$_GET['debut']]);
+                while($rows = $stmt->fetch()){
+                    $delet->execute([$rows['id']]);
+                    $change->execute([$rows['id']]);
+                }
+                
+            }
+            
+
+
             if (isset($_GET['statu']) || isset($_GET['debut'])) {
                 if (isset($_GET['statu']) && $_GET['statu']!="" && isset($_GET['debut']) && $_GET['debut']!= "") {
                     $stat[0] = $stat[1] = $stat[2] = $_GET['statu'];
@@ -110,8 +128,13 @@
                 }
                 echo '</tr>';
             }
+
+            
+
+
         ?>
 
+        
         
         </table>
     
