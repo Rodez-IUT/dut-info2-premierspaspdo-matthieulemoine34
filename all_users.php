@@ -78,6 +78,7 @@
                 $stmt->execute([1,2,3,$_GET['debut']]);
                 while($rows = $stmt->fetch()){
                     $delet->execute([$rows['id']]);
+                    throw new Exception("problème entre les opérations");
                     $change->execute([$rows['id']]);
                 }
                 
