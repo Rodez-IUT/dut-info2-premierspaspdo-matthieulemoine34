@@ -77,9 +77,15 @@
             if (isset($_GET['action']) && $_GET['action']=="askDeletion" && isset($_GET['debut'])){
                 $stmt->execute([1,2,3,$_GET['debut']]);
                 while($rows = $stmt->fetch()){
-                    $delet->execute([$rows['id']]);
-                    throw new Exception("problème entre les opérations");
-                    $change->execute([$rows['id']]);
+                    try {
+                        $pdo->beginTransaction();
+                        $delet->execute([$rows['id']]);
+                        throw new Exception("problème entre les opérations");
+                        $change->execute([$rows['id']]);
+                        $pdo->commit();
+                    } catch (Exception $e) {
+                        $pdo->rollBack();
+                    }
                 }
                 
             }
